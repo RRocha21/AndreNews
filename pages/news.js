@@ -7,32 +7,6 @@ import xml2js from 'xml2js'
 const url = 'https://pt.ign.com/news.xml';
 const proxyUrl = 'https://api.codetabs.com/v1/proxy?quest=';
 
-const ImageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-`
-
-const NewsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`
-
-const NewsItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: 10px;
-  border-radius: 20px;
-  overflow: hidden;
-  width: 256px;
-  height: 144px;
-`
 
 export default function Home() {
   const [news, setNews] = useState([]);
@@ -73,17 +47,14 @@ export default function Home() {
   return (
     <div>
       <h1>Latest IGN Portugal News</h1>
-      <NewsWrapper>
+      <div style={{ display: 'flex' }}>
         {news.slice(currentIndex, currentIndex + 3).map((item, index) => (
-          <NewsItem key={index}>
-            <ImageWrapper>
-              {item.enclosure && <Image src={item.enclosure} alt={item.title} width={256} height={144} objectFit="cover" layout="fixed" />}
-              <h2>{item.title}</h2>
-            </ImageWrapper>
-          </NewsItem>
+          <div key={index} style={{ width: '33.33%', padding: '0 16px' }}>
+            <Image src={item?.enclosure} width={256} height={144} />
+            <h2 width>{item?.title}</h2>
+          </div>
         ))}
-      </NewsWrapper>
+      </div>
     </div>
   );
 }
-
